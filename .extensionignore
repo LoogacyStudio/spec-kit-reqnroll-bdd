@@ -1,0 +1,16 @@
+# Development-only files
+.git/
+.github/
+tests/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local/editor files
+.vscode/
+.idea/
+.DS_Store
+
+# Drafts
+*.draft.md
+*.tmp
