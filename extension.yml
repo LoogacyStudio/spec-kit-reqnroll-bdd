@@ -3,7 +3,7 @@ schema_version: "1.0"
 extension:
   id: "reqnroll-bdd"
   name: "Reqnroll BDD"
-  version: "0.2.1"
+  version: "1.0.0"
   description: "Generate Reqnroll BDD plans, Gherkin files, task injections, handoffs, and verification reports."
   author: "LoogaCY Studio"
   repository: "https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd"

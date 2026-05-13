@@ -4,6 +4,8 @@ A Spec Kit extension for turning acceptance criteria into Reqnroll-oriented BDD 
 
 This extension is intentionally small. It does not replace `/speckit.implement`. It prepares a clean BDD construction plan so the native Spec Kit implementation command can build the test project, step definitions, and production code.
 
+Spec Kit Reqnroll BDD v1.0.0 is a community-ready extension for turning acceptance criteria into Reqnroll BDD plans, Gherkin files, traceability, safe task injection, implementation handoffs, and verification reports without replacing `/speckit.implement`.
+
 ## Workflow
 
 ```text
@@ -126,9 +128,27 @@ Full step implementation remains the responsibility of `/speckit.implement`.
 - It does not generate complete C# step definitions.
 - It does not modify production code.
 - It does not automate Godot UI tests.
-- It does not submit to the community catalog yet.
+- Community catalog submission is prepared separately through the official Spec Kit extension submission process.
 
-## Optional configuration
+## Installation from GitHub Release
+
+Install from the GitHub release archive for tag `v1.0.0`:
+
+```bash
+specify extension add reqnroll-bdd --from https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd/archive/refs/tags/v1.0.0.zip
+```
+
+## Installation for Local Development
+
+From a Spec Kit project:
+
+```bash
+specify extension add --dev /path/to/spec-kit-reqnroll-bdd
+```
+
+Then restart or reload your coding agent if the commands do not appear immediately.
+
+## Configuration
 
 The extension ships with an optional configuration template:
 
@@ -136,19 +156,21 @@ The extension ships with an optional configuration template:
 config-template.yml
 ```
 
-When installed, this may be copied as:
+The extension installs an optional config file at:
 
 ```text
 .specify/extensions/reqnroll-bdd/reqnroll-bdd-config.yml
 ```
 
-The MVP does not require configuration. The config file is mainly for project-specific defaults such as:
+Key options:
 
-- target acceptance test project
-- fallback `.feature` output path
-- Application-layer binding boundary
-- whether verification should auto-run `dotnet test`
-- forbidden implementation terms for `.feature` files
+- `target_test_project`
+- `default_feature_output_path`
+- `test_boundary`
+- `dotnet_test_execution`
+- `task_injection.enabled`
+- `task_injection.fallback_to_handoff`
+- `task_injection.replace_existing_block`
 
 ## Architecture boundary
 
@@ -176,15 +198,23 @@ Godot Button / Label / Node / Signal / SceneTree
 
 BDD scenarios should describe observable behavior, not implementation structure.
 
-## Installation for local development
+## Troubleshooting
 
-From a Spec Kit project:
+### The hook runs but no tasks are injected
 
-```bash
-specify extension add --dev /path/to/spec-kit-reqnroll-bdd
-```
+Run `/speckit.reqnroll-bdd.generate` first. Task injection only modifies `tasks.md` when these files exist:
 
-Then restart or reload your coding agent if the commands do not appear immediately.
+- `bdd-implementation-handoff.md`
+- `bdd-traceability.md`
+- `tasks.md`
+
+### Tests are skipped in verify
+
+`/speckit.reqnroll-bdd.verify` only runs `dotnet test` when a .NET test project appears configured.
+
+### Feature files mention implementation details
+
+Run `/speckit.reqnroll-bdd.verify` and remove architecture leakage such as `Aggregate`, `Repository`, `Godot`, `Node`, `Button`, or `SceneTree`.
 
 ## Compatibility
 

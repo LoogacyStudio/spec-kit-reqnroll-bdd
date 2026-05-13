@@ -30,4 +30,5 @@
 
 - [ ] BDD-006 Run acceptance tests
   - Command: `dotnet test`
+
 <!-- reqnroll-bdd:tasks:end -->
