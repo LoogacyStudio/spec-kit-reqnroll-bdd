@@ -21,6 +21,8 @@
 - Test boundary: Application
 - Reason: {reason}
 
+Draft:
+
 ```gherkin
 Scenario: {scenario_title}
   Given ...
@@ -40,5 +42,6 @@ Scenario: {scenario_title}
 
 ## Architecture Notes
 
-- Step definitions should bind to Application-layer use cases.
-- Feature files must not expose Domain internals, Infrastructure details, or Godot Presentation nodes.
+Step definitions should bind to Application-layer use cases.
+
+Feature files must not expose Domain internals, Infrastructure details, or Godot Presentation nodes.

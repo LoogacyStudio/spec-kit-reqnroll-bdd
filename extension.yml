@@ -1,12 +1,13 @@
-schema_version: "0.1.0"
+schema_version: "1.0"
 
 extension:
   id: "reqnroll-bdd"
   name: "Reqnroll BDD"
   version: "0.1.0"
-  description: "Convert Spec Kit acceptance criteria into Reqnroll-oriented BDD plans, Gherkin feature files, implementation handoffs, and verification reports."
+  description: "Generate Reqnroll BDD plans, Gherkin files, handoffs, and verification reports."
   author: "LoogaCY Studio"
   repository: "https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd"
+  homepage: "https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd"
   license: "MIT"
 
 requires:
@@ -14,11 +15,6 @@ requires:
   tools:
     - name: "dotnet"
       required: false
-  commands:
-    - "speckit.specify"
-    - "speckit.plan"
-    - "speckit.tasks"
-    - "speckit.implement"
 
 provides:
   commands:
@@ -28,11 +24,17 @@ provides:
 
     - name: "speckit.reqnroll-bdd.generate"
       file: "commands/generate.md"
-      description: "Generate Reqnroll-compatible Gherkin feature files, traceability mapping, and implementation handoff."
+      description: "Generate Reqnroll-compatible Gherkin files, traceability, and implementation handoff."
 
     - name: "speckit.reqnroll-bdd.verify"
       file: "commands/verify.md"
-      description: "Verify BDD coverage, scenario quality, architecture boundaries, and optional Reqnroll test execution."
+      description: "Verify BDD coverage, scenario quality, architecture boundaries, and optional test execution."
+
+  config:
+    - name: "reqnroll-bdd-config.yml"
+      template: "config-template.yml"
+      description: "Optional Reqnroll BDD extension configuration."
+      required: false
 
 tags:
   - "bdd"
@@ -40,4 +42,12 @@ tags:
   - "dotnet"
   - "gherkin"
   - "acceptance-testing"
-  - "spec-driven-development"
+
+defaults:
+  reqnroll_bdd:
+    target_test_project: ""
+    default_feature_output_path: "tests/AcceptanceTests/Features"
+    test_boundary: "Application"
+    dotnet_test_execution: "auto"
+    allow_rule_keyword: true
+    require_ac_tags: true

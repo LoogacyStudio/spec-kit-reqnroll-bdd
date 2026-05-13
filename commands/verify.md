@@ -20,12 +20,12 @@ Optionally run `dotnet test` if a .NET test project is present.
 
 Read:
 
-* `specs/{feature}/spec.md`
-* `specs/{feature}/bdd-test-plan.md`
-* `specs/{feature}/bdd-traceability.md`
-* `specs/{feature}/bdd-implementation-handoff.md`
-* generated `.feature` files
-* `.specify/memory/constitution.md` if present
+- `specs/{feature}/spec.md`
+- `specs/{feature}/bdd-test-plan.md`
+- `specs/{feature}/bdd-traceability.md`
+- `specs/{feature}/bdd-implementation-handoff.md`
+- generated `.feature` files
+- `.specify/memory/constitution.md` if present
 
 ## Verification Checks
 
@@ -33,48 +33,48 @@ Read:
 
 Check:
 
-* Every acceptance criterion is classified.
-* Every BDD-classified criterion has at least one scenario.
-* Every scenario maps back to at least one criterion.
+- Every acceptance criterion is classified.
+- Every BDD-classified criterion has at least one scenario.
+- Every scenario maps back to at least one criterion.
 
 ### 2. Scenario Traceability
 
 Check:
 
-* Every scenario has a tag like `@AC-001`.
-* Every tag exists in the traceability table.
-* No orphan scenario exists.
+- Every scenario has a tag like `@AC-001`.
+- Every tag exists in the traceability table.
+- No orphan scenario exists.
 
 ### 3. Gherkin Quality
 
 Check:
 
-* Scenario titles are specific.
-* Scenario has clear Given/When/Then.
-* Scenario has no more than one main When unless justified.
-* Scenario is not too broad.
-* Scenario does not assert unrelated outcomes.
-* Scenario does not use vague wording such as "works correctly".
+- Scenario titles are specific.
+- Scenario has clear `Given` / `When` / `Then`.
+- Scenario has no more than one main `When` unless justified.
+- Scenario is not too broad.
+- Scenario does not assert unrelated outcomes.
+- Scenario does not use vague wording such as "works correctly".
 
 ### 4. Architecture Boundary
 
 Fail if `.feature` files mention implementation details such as:
 
-* Aggregate
-* Repository
-* DTO
-* Handler
-* Controller
-* ViewModel
-* Presenter
-* Godot
-* Node
-* Label
-* Button
-* Signal
-* SceneTree
-* method names
-* class names
+- Aggregate
+- Repository
+- DTO
+- Handler
+- Controller
+- ViewModel
+- Presenter
+- Godot
+- Node
+- Label
+- Button
+- Signal
+- SceneTree
+- method names
+- class names
 
 Warn if step implementation guidance binds directly to Presentation.
 
@@ -98,7 +98,7 @@ specs/{feature}/bdd-verification.md
 
 ## Required Output Structure
 
-````markdown
+```markdown
 # BDD Verification Report
 
 ## Feature
@@ -148,27 +148,27 @@ One of:
 
 | Priority | Action |
 |---|---|
-````
+```
 
 ## Pass / Fail Rules
 
 Fail if:
 
-* Any BDD-classified acceptance criterion has no scenario.
-* Any scenario lacks traceability.
-* Feature files expose implementation details.
-* `dotnet test` runs and fails.
+- Any BDD-classified acceptance criterion has no scenario.
+- Any scenario lacks traceability.
+- Feature files expose implementation details.
+- `dotnet test` runs and fails.
 
 Warn if:
 
-* Test execution is skipped because no Reqnroll project exists.
-* Scenario wording is vague.
-* A scenario is too broad.
-* A criterion is classified as Not Testable Yet.
+- Test execution is skipped because no Reqnroll project exists.
+- Scenario wording is vague.
+- A scenario is too broad.
+- A criterion is classified as Not Testable Yet.
 
 Pass only if:
 
-* All BDD criteria are covered.
-* All scenarios are traceable.
-* No architecture leakage exists.
-* Optional tests pass or are justifiably skipped.
+- All BDD criteria are covered.
+- All scenarios are traceable.
+- No architecture leakage exists.
+- Optional tests pass or are justifiably skipped.

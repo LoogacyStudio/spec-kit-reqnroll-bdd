@@ -22,9 +22,11 @@ Scenario: BattleAggregate applies GuardCardEffect
 
 ## Rules
 
-* Use user/player language.
-* Use domain language only when it is part of the product vocabulary.
-* Avoid class names and method names.
-* Prefer one main `When`.
-* Keep each scenario focused.
-* Tag every scenario with its source acceptance criterion.
+- Use user/player language.
+- Use domain language only when it is part of the product vocabulary.
+- Avoid class names and method names.
+- Prefer one main `When`.
+- Keep each scenario focused.
+- Tag every scenario with its source acceptance criterion.
+- Use `Rule:` to group multiple scenarios under the same business/game rule.
+- Avoid UI implementation details unless the spec is explicitly about UI behavior.

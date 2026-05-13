@@ -1,6 +1,6 @@
 # Reqnroll Project Guidance
 
-Recommended test location:
+## Recommended test location
 
 ```text
 tests/{Project}.AcceptanceTests/
@@ -9,7 +9,7 @@ tests/{Project}.AcceptanceTests/
   TestSupport/
 ```
 
-Recommended boundary:
+## Recommended boundary
 
 ```text
 Steps call Application Services or test-facing Application facades.
@@ -17,10 +17,14 @@ Application calls Domain.
 Presentation is not involved.
 ```
 
-Recommended test support:
+## Recommended test support
 
-* Scenario context
-* Test data builders
-* In-memory repositories
-* domain object mothers
-* fake event dispatcher if needed
+- Scenario context
+- Test data builders
+- In-memory repositories
+- domain object mothers
+- fake event dispatcher if needed
+
+## Suggested package direction
+
+The implementation command may choose the exact Reqnroll test framework package set based on the target project, but the acceptance test project should be isolated from Godot Presentation runtime dependencies unless the feature explicitly requires a smoke or integration boundary.

@@ -2,7 +2,7 @@
 
 The generate command must produce enough implementation guidance for `/speckit.implement`.
 
-The handoff must include:
+## The handoff must include
 
 - target test project
 - feature files
@@ -12,7 +12,7 @@ The handoff must include:
 - suggested task insertions
 - verification command
 
-The handoff must not:
+## The handoff must not
 
 - implement production code
 - generate full step definitions
