@@ -52,11 +52,12 @@ Create or update:
 
 | Task ID | Task | Depends On |
 | --- | --- | --- |
-| BDD-001 | Create Reqnroll acceptance test project | None |
-| BDD-002 | Add GuardCard.feature to acceptance test project | BDD-001 |
-| BDD-003 | Implement GuardCardSteps through Application-layer facade | BDD-002 |
-| BDD-004 | Add test data builders for player hand and Guard cards | BDD-003 |
-| BDD-005 | Run acceptance tests and fix failing implementation | BDD-004 |
+| BDD-001 | Create or update the Reqnroll acceptance test project | None |
+| BDD-002 | Include GuardCard.feature in the acceptance test project | BDD-001 |
+| BDD-003 | Create GuardCardSteps skeletons with Given / When / Then method signatures and `PendingStepException` | BDD-002 |
+| BDD-004 | Complete GuardCardSteps through the Application boundary or an Application-layer test facade | BDD-003 |
+| BDD-005 | Add scenario context, battle and card test data builders, in-memory battle state, and optional Application-layer test facade | BDD-003 |
+| BDD-006 | Run acceptance tests and fix failing implementation | BDD-004, BDD-005 |
 
 ### Required Verification
 

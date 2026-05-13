@@ -21,6 +21,64 @@ This handoff guides `/speckit.implement` to implement the generated Reqnroll BDD
 | Scenario ID | Feature File | Suggested Step Class | Binding Boundary |
 | --- | --- | --- | --- |
 
+### Step Definition Skeleton Guidance
+
+Generate skeleton step definition classes only.
+
+Skeletons may include:
+
+- namespace
+- `using Reqnroll;`
+- `[Binding]`
+- constructor injection for scenario context or Application-layer test facade
+- method signatures for Given / When / Then steps
+- `throw new PendingStepException();`
+
+Skeletons must not include:
+
+- full production logic
+- completed assertions
+- domain calculations
+- repository implementations
+- Godot node, label, button, signal, or scene tree access
+
+Example skeleton:
+
+```csharp
+using Reqnroll;
+
+namespace {AcceptanceTestNamespace}.Steps;
+
+[Binding]
+public sealed class {SuggestedStepClass}
+{
+    private readonly GameScenarioContext _context;
+
+    public {SuggestedStepClass}(GameScenarioContext context)
+    {
+        _context = context;
+    }
+
+    [Given("{step pattern}")]
+    public void GivenSomePrecondition()
+    {
+        throw new PendingStepException();
+    }
+
+    [When("{step pattern}")]
+    public void WhenSomeActionOccurs()
+    {
+        throw new PendingStepException();
+    }
+
+    [Then("{step pattern}")]
+    public void ThenSomeOutcomeIsObserved()
+    {
+        throw new PendingStepException();
+    }
+}
+```
+
 ### Test Support
 
 Create or update:

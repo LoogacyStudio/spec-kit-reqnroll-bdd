@@ -18,11 +18,13 @@ This command does not implement code. It only updates or proposes BDD implementa
 
 ## Precondition Rules
 
-This command must only inject tasks when these files exist:
+This command must only modify `tasks.md` when these files exist:
 
 - `specs/{feature}/bdd-implementation-handoff.md`
 - `specs/{feature}/bdd-traceability.md`
 - `specs/{feature}/tasks.md`
+
+If `tasks.md` is missing but handoff and traceability exist, do not create `tasks.md`; write the proposed task block to `bdd-implementation-handoff.md`.
 
 If `bdd-implementation-handoff.md` is missing, skip without changing files.
 
@@ -104,18 +106,21 @@ Use exactly these markers:
   - Scenarios: {scenario_ids}
   - Criteria: {criteria_ids}
 
-- [ ] BDD-003 Implement step definitions through the Application boundary
+- [ ] BDD-003 Create step definition skeletons
   - Suggested step classes: {suggested_step_classes}
   - Boundary: Application
+  - Skeleton only: `[Binding]`, constructor dependencies, Given/When/Then method signatures, and `PendingStepException`.
+  - Do not implement full business logic in this task.
+
+- [ ] BDD-004 Complete step definitions through the Application boundary
+  - Use Application Services or test-facing Application facades.
   - Do not bind steps to Godot nodes, labels, buttons, signals, or scene tree structure.
 
-- [ ] BDD-004 Add test support objects
+- [ ] BDD-005 Add test support objects
   - Support: Scenario context, test data builders, in-memory repositories or fakes, Application-layer test facade if useful.
 
-- [ ] BDD-005 Run acceptance tests
+- [ ] BDD-006 Run acceptance tests
   - Command: `dotnet test`
-  - Expected result: all Reqnroll acceptance tests pass.
-
 <!-- reqnroll-bdd:tasks:end -->
 ```
 

@@ -13,6 +13,7 @@ This extension is intentionally small. It does not replace `/speckit.implement`.
 /speckit.reqnroll-bdd.plan
 /speckit.reqnroll-bdd.generate
 /speckit.implement
+  ↳ before_implement hook: /speckit.reqnroll-bdd.inject-tasks
 /speckit.reqnroll-bdd.verify
 ```
 
@@ -77,6 +78,38 @@ It creates:
 specs/{feature}/bdd-verification.md
 ```
 
+## Hook-driven Task Injection
+
+v0.2.0 adds optional task injection through the `before_implement` hook.
+
+Before `/speckit.implement` runs, the extension may trigger:
+
+```text
+/speckit.reqnroll-bdd.inject-tasks
+```
+
+The command injects a bounded BDD task block into:
+
+```text
+specs/{feature}/tasks.md
+```
+
+The block is idempotent and only modifies `tasks.md` when these files exist:
+
+- `specs/{feature}/bdd-implementation-handoff.md`
+- `specs/{feature}/bdd-traceability.md`
+- `specs/{feature}/tasks.md`
+
+If `tasks.md` is missing but handoff and traceability exist, the command does not create `tasks.md`; it writes the proposed BDD task block to `bdd-implementation-handoff.md` instead.
+
+## Step Definition Skeleton Guidance
+
+The generated implementation handoff may include suggested Reqnroll step definition skeletons.
+
+These skeletons are intentionally incomplete. They may include `[Binding]` classes, constructor dependencies, Given/When/Then method signatures, and `PendingStepException`, but they must not include full business logic or production implementation.
+
+Full step implementation remains the responsibility of `/speckit.implement`.
+
 ## What this extension does
 
 - Analyze acceptance criteria.
@@ -86,16 +119,14 @@ specs/{feature}/bdd-verification.md
 - Generate an implementation handoff for `/speckit.implement`.
 - Verify BDD artifact quality and architecture boundaries.
 
-## What this extension does not do in v0.1.0
+## What this extension does not do
 
 - It does not provide `/speckit.reqnroll-bdd.implement`.
 - It does not automatically install NuGet packages.
 - It does not generate complete C# step definitions.
 - It does not modify production code.
 - It does not automate Godot UI tests.
-- It does not define hooks.
-- It is not submitted to the community catalog yet.
-
+- It does not submit to the community catalog yet.
 
 ## Optional configuration
 
@@ -154,18 +185,6 @@ specify extension add --dev /path/to/spec-kit-reqnroll-bdd
 ```
 
 Then restart or reload your coding agent if the commands do not appear immediately.
-
-## Suggested release flow
-
-```bash
-git init
-git add .
-git commit -m "Initial v0.1.0"
-git tag v0.1.0
-git remote add origin https://github.com/LoogaCY-Studio/spec-kit-reqnroll-bdd.git
-git push -u origin main
-git push origin v0.1.0
-```
 
 ## Compatibility
 

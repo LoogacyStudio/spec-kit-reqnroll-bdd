@@ -3,8 +3,8 @@ schema_version: "1.0"
 extension:
   id: "reqnroll-bdd"
   name: "Reqnroll BDD"
-  version: "0.2.0"
-  description: "Generate Reqnroll BDD plans, Gherkin files, handoffs, and verification reports."
+  version: "0.2.1"
+  description: "Generate Reqnroll BDD plans, Gherkin files, task injections, handoffs, and verification reports."
   author: "LoogaCY Studio"
   repository: "https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd"
   homepage: "https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd"
@@ -62,3 +62,13 @@ defaults:
     dotnet_test_execution: "auto"
     allow_rule_keyword: true
     require_ac_tags: true
+    task_injection:
+      enabled: true
+      mode: "update_tasks"
+      hook_event: "before_implement"
+      fallback_to_handoff: true
+      marker_start: "<!-- reqnroll-bdd:tasks:start -->"
+      marker_end: "<!-- reqnroll-bdd:tasks:end -->"
+      insertion_strategy: "append"
+      replace_existing_block: true
+      fail_on_malformed_marker: true

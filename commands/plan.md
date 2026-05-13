@@ -94,7 +94,7 @@ specs/{feature}/bdd-test-plan.md
 ## Acceptance Criteria Classification
 
 | Criteria ID | Source | Classification | Reason | BDD Candidate |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 
 ## BDD Scenario Candidates
 
@@ -116,12 +116,12 @@ Scenario: {scenario title}
 ## Non-BDD Test Recommendations
 
 | Criteria ID | Recommended Test Type | Reason |
-|---|---|---|
+| --- | --- | --- |
 
 ## Ambiguities and Missing Details
 
 | Item | Problem | Suggested Clarification |
-|---|---|---|
+| --- | --- | --- |
 
 ## Architecture Notes
 

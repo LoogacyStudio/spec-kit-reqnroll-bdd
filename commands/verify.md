@@ -108,7 +108,7 @@ specs/{feature}/bdd-verification.md
 ## Summary
 
 | Check | Result | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Acceptance criteria coverage | Pass/Warning/Fail | |
 | Scenario traceability | Pass/Warning/Fail | |
 | Gherkin quality | Pass/Warning/Fail | |
@@ -118,17 +118,17 @@ specs/{feature}/bdd-verification.md
 ## Coverage Details
 
 | Criteria ID | Status | Scenario(s) | Notes |
-|---|---|---|---|
+| --- | --- | --- | --- |
 
 ## Scenario Quality Findings
 
 | Severity | Scenario | Problem | Suggested Fix |
-|---|---|---|---|
+| --- | --- | --- | --- |
 
 ## Architecture Boundary Findings
 
 | Severity | File | Term/Issue | Suggested Fix |
-|---|---|---|---|
+| --- | --- | --- | --- |
 
 ## Test Execution
 
@@ -147,7 +147,7 @@ One of:
 ## Required Follow-up Actions
 
 | Priority | Action |
-|---|---|
+| --- | --- |
 ```
 
 ## Pass / Fail Rules
