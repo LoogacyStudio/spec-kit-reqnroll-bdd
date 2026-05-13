@@ -3,7 +3,7 @@ schema_version: "1.0"
 extension:
   id: "reqnroll-bdd"
   name: "Reqnroll BDD"
-  version: "0.1.0"
+  version: "0.2.0"
   description: "Generate Reqnroll BDD plans, Gherkin files, handoffs, and verification reports."
   author: "LoogaCY Studio"
   repository: "https://github.com/LoogacyStudio/spec-kit-reqnroll-bdd"
@@ -26,6 +26,10 @@ provides:
       file: "commands/generate.md"
       description: "Generate Reqnroll-compatible Gherkin files, traceability, and implementation handoff."
 
+    - name: "speckit.reqnroll-bdd.inject-tasks"
+      file: "commands/inject-tasks.md"
+      description: "Inject traceable BDD implementation tasks into the active Spec Kit tasks.md file."
+
     - name: "speckit.reqnroll-bdd.verify"
       file: "commands/verify.md"
       description: "Verify BDD coverage, scenario quality, architecture boundaries, and optional test execution."
@@ -35,6 +39,13 @@ provides:
       template: "config-template.yml"
       description: "Optional Reqnroll BDD extension configuration."
       required: false
+
+hooks:
+  before_implement:
+    command: speckit.reqnroll-bdd.inject-tasks
+    optional: true
+    prompt: "Inject Reqnroll BDD implementation tasks before implementation?"
+    description: "Inject BDD acceptance test tasks into tasks.md before implementation"
 
 tags:
   - "bdd"

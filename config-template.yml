@@ -45,3 +45,14 @@ reqnroll_bdd:
     - "class"
     - "service method"
     - "database table"
+
+  task_injection:
+    enabled: true
+    mode: "update_tasks"
+    hook_event: "before_implement"
+    fallback_to_handoff: true
+    marker_start: "<!-- reqnroll-bdd:tasks:start -->"
+    marker_end: "<!-- reqnroll-bdd:tasks:end -->"
+    insertion_strategy: "append"
+    replace_existing_block: true
+    fail_on_malformed_marker: true
