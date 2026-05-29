@@ -27,4 +27,4 @@ Presentation is not involved.
 
 ## Suggested package direction
 
-The implementation command may choose the exact Reqnroll test framework package set based on the target project, but the acceptance test project should be isolated from Godot Presentation runtime dependencies unless the feature explicitly requires a smoke or integration boundary.
+The implementation command may choose the exact Reqnroll test framework package set based on the target project, but the acceptance test project should be isolated from Presentation-layer runtime dependencies unless the feature explicitly requires a smoke or integration boundary.

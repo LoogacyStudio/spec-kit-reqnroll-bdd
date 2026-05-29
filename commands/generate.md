@@ -55,14 +55,21 @@ Document that assumption in `bdd-implementation-handoff.md`.
 Feature files must:
 
 1. Use Reqnroll-compatible Gherkin.
-2. Use requirement language, not implementation language.
-3. Tag each scenario with its source criteria ID, for example `@AC-001`.
-4. Prefer one main `When` per scenario.
-5. Keep each scenario focused on one behavior.
-6. Use `Rule:` when multiple scenarios describe the same business/game rule.
-7. Avoid UI implementation details.
-8. Avoid Domain/Internal implementation names.
-9. Give each generated scenario a stable scenario ID in comments or traceability, such as `SC-001`.
+2. Place `@infrastructure` on the line immediately before `Feature:` so CI/CD pipelines can identify tests that require test infrastructure (in-memory fakes, test data builders, scenario context). Example:
+
+    ```gherkin
+    @infrastructure
+    Feature: Account Balance Management
+    ```
+
+3. Use requirement language, not implementation language.
+4. Tag each scenario with its source criteria ID, for example `@AC-001`.
+5. Prefer one main `When` per scenario.
+6. Keep each scenario focused on one behavior.
+7. Use `Rule:` when multiple scenarios describe the same business rule.
+8. Avoid UI implementation details.
+9. Avoid Domain/Internal implementation names.
+10. Give each generated scenario a stable scenario ID in comments or traceability, such as `SC-001`.
 
 ## Forbidden Terms in `.feature`
 
@@ -75,12 +82,7 @@ Do not use these unless they are actual domain language from the spec:
 - Controller
 - ViewModel
 - Presenter
-- Godot
-- Node
-- Label
-- Button
-- Signal
-- SceneTree
+- Presentation-layer terms (e.g., UI widget, page, view, component names)
 - method
 - class
 - service method
@@ -91,22 +93,26 @@ Do not use these unless they are actual domain language from the spec:
 Allowed:
 
 ```gherkin
-@AC-001
-Scenario: Playing two Guard cards stacks shield
-  Given the player has 0 shield
-  And the player has 2 Guard cards in hand
-  When the player plays both Guard cards
-  Then the player should have 10 shield
-  And both Guard cards should be in the discard pile
+@infrastructure
+Feature: Account Balance Management
+
+  Rule: Deposits increase the account balance
+
+    @AC-001
+    Scenario: Making a single deposit increases balance
+      Given the account has a balance of 100.00
+      When a deposit of 50.00 is made
+      Then the account balance should be 150.00
 ```
 
 Forbidden:
 
 ```gherkin
-Scenario: BattleAggregate applies GuardCardEffect
-  Given BattleAggregate has PlayerStats.Shield = 0
-  When BattleAppService.Handle PlayCardCommand
-  Then PlayerStats.Shield.Value should be 10
+Feature: Account Balance Management
+  Scenario: AccountAggregate applies DepositCommand
+    Given AccountAggregate has Balance.Value = 100
+    When AccountAppService.Handle DepositCommand
+    Then Balance.Value should be 150
 ```
 
 ## Traceability Output
@@ -197,8 +203,7 @@ Forbidden skeleton content:
 - domain rule calculations
 - direct repository implementation
 - production method internals
-- Godot node access
-- UI label/button/signal/scene tree access
+- Presentation-layer access (e.g., UI controls, pages, views)
 
 Skeleton example:
 
@@ -210,9 +215,9 @@ namespace {AcceptanceTestNamespace}.Steps;
 [Binding]
 public sealed class {SuggestedStepClass}
 {
-    private readonly GameScenarioContext _context;
+    private readonly ScenarioContext _context;
 
-    public {SuggestedStepClass}(GameScenarioContext context)
+    public {SuggestedStepClass}(ScenarioContext context)
     {
         _context = context;
     }
@@ -249,8 +254,8 @@ Create or update:
 ### Architecture Rules
 
 - Step definitions may call Application Services or test-facing Application facades.
-- Step definitions must not call Godot Presentation nodes.
-- Step definitions must not depend on UI labels, buttons, signals, or scene tree structure.
+- Step definitions must not call Presentation-layer components.
+- Step definitions must not depend on UI controls, pages, views, or presentation framework events.
 - Feature files must remain implementation-agnostic.
 
 ### Suggested Task Insertions

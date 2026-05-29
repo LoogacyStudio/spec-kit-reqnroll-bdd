@@ -39,12 +39,10 @@ Generated tasks must include:
 
 Injected tasks must not tell /speckit.implement to bind BDD steps directly to:
 
-- Godot nodes
-- labels
-- buttons
-- signals
-- scene tree structure
-- animation players
+- UI controls (buttons, labels, text fields)
+- pages or views
+- presentation framework signals or events
+- animation or visual effects
 
 Use Application Services or test-facing Application facades instead.
 

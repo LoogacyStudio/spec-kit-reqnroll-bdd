@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.1.0] - 2026-05-29
+
+### Added
+
+- `@infrastructure` tag convention: placed on the line immediately before `Feature:` in all generated `.feature` files so CI/CD pipelines can identify tests requiring test infrastructure.
+- Skeleton → implementation transition guide: Given/When/Then patterns showing how to replace `PendingStepException()` with Application-layer calls via test data builders, service facades, and scenario context assertions.
+- Expected test state transition table (`skipped` → `passed`) in implementation handoff and verification templates.
+- Concrete BDD-004 implementation guidance: explicit replacement patterns for Given (builder + context), When (facade call), Then (context assertion) steps.
+- Verification now distinguishes yellow/inconclusive (`PendingStepException`, pending implementation) from red/failures (assertion errors).
+
+### Changed
+
+- Generalized all Godot-specific terminology to domain-neutral "Presentation layer" language across all commands, templates, docs, and README.
+- Replaced gaming-themed Gherkin and C# examples with generic business domain examples (Account Balance / Deposit).
+- `GameScenarioContext` → `ScenarioContext` in all skeleton and implementation pattern templates.
+- `business/game rule` → `business rule`, `user/player` → `user` throughout.
+- Architecture Boundary rules now reference "Presentation-layer components (e.g., UI controls, pages, views)" instead of framework-specific terms.
+
+### Fixed
+
+- `@infrastructure` tag now correctly placed on its own line before `Feature:`, not inline on the Feature line.
+- Step definitions skeleton template no longer leaves implementers without a clear path from placeholder to working tests.
+
 ## [1.0.0] - 2026-05-13
 
 ### Added

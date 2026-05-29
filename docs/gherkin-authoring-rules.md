@@ -1,32 +1,46 @@
 # Gherkin Authoring Rules
 
-## Good Scenario
+## Good Feature File
 
 ```gherkin
-@AC-001
-Scenario: Playing two Guard cards stacks shield
-  Given the player has 0 shield
-  And the player has 2 Guard cards in hand
-  When the player plays both Guard cards
-  Then the player should have 10 shield
+@infrastructure
+Feature: Account Balance Management
+  Users can deposit funds and view their updated account balance.
+
+  Rule: Deposits increase the account balance
+
+    @AC-001
+    Scenario: Making a single deposit increases balance
+      Given the account has a balance of 100.00
+      When a deposit of 50.00 is made
+      Then the account balance should be 150.00
+
+    @AC-002
+    Scenario: Making multiple deposits accumulates balance
+      Given the account has a balance of 100.00
+      When a deposit of 50.00 is made
+      And a deposit of 25.00 is made
+      Then the account balance should be 175.00
 ```
 
-## Bad Scenario
+## Bad Feature File
 
 ```gherkin
-Scenario: BattleAggregate applies GuardCardEffect
-  Given BattleAggregate has PlayerStats.Shield = 0
-  When BattleAppService.Handle PlayCardCommand
-  Then PlayerStats.Shield.Value should be 10
+Feature: Account Balance Management
+  Scenario: AccountAggregate applies DepositCommand
+    Given AccountAggregate has Balance.Value = 100
+    When AccountAppService.Handle DepositCommand
+    Then Balance.Value should be 150
 ```
 
 ## Rules
 
-- Use user/player language.
+- Tag the `Feature:` line with `@infrastructure` so CI/CD can identify tests that need test infrastructure (in-memory fakes, builders, scenario context).
+- Use user-facing language appropriate to the domain.
 - Use domain language only when it is part of the product vocabulary.
 - Avoid class names and method names.
 - Prefer one main `When`.
 - Keep each scenario focused.
 - Tag every scenario with its source acceptance criterion.
-- Use `Rule:` to group multiple scenarios under the same business/game rule.
+- Use `Rule:` to group multiple scenarios under the same business rule.
 - Avoid UI implementation details unless the spec is explicitly about UI behavior.

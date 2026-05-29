@@ -243,7 +243,7 @@ Forbidden binding path:
   ↓
 Step Definitions
   ↓
-Godot Button / Label / Node / Signal / SceneTree
+Presentation Layer (UI controls / pages / views)
 ```
 
 BDD scenarios should describe observable behavior, not implementation structure.
@@ -268,8 +268,7 @@ Skeletons must not include:
 - domain calculations
 - production method internals
 - repository implementation
-- Godot node access
-- UI label, button, signal, or scene tree access
+- Presentation-layer access (e.g., UI controls, pages, views)
 
 Example skeleton:
 
@@ -281,15 +280,15 @@ namespace AcceptanceTests.Steps;
 [Binding]
 public sealed class MovementStepDefinitions
 {
-    private readonly GameScenarioContext _context;
+    private readonly ScenarioContext _context;
 
-    public MovementStepDefinitions(GameScenarioContext context)
+    public MovementStepDefinitions(ScenarioContext context)
     {
         _context = context;
     }
 
-    [Given("the player is at the starting position")]
-    public void GivenThePlayerIsAtTheStartingPosition()
+    [Given("the user is at the starting position")]
+    public void GivenTheUserIsAtTheStartingPosition()
     {
         throw new PendingStepException();
     }
@@ -305,8 +304,8 @@ This extension does not:
 - automatically install NuGet packages
 - generate complete C# step definitions
 - modify production code directly
-- automate Godot UI tests
-- bind BDD steps to Godot Presentation nodes
+- automate Presentation-layer tests
+- bind BDD steps to Presentation-layer components
 
 Task injection is opportunistic. It only modifies `tasks.md` when these files exist:
 
@@ -360,12 +359,9 @@ Handler
 Controller
 ViewModel
 Presenter
-Godot
-Node
-Label
-Button
-Signal
-SceneTree
+UI widget names
+page names
+view names
 method
 class
 service method
@@ -376,7 +372,7 @@ database table
 
 Move the binding target to an Application Service or test-facing Application facade.
 
-Do not bind Reqnroll steps directly to Godot nodes, labels, buttons, signals, or scene tree structure.
+Do not bind Reqnroll steps directly to Presentation-layer components (e.g., UI controls, pages, views).
 
 ## Documentation
 

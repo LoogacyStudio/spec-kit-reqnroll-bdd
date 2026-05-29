@@ -23,7 +23,7 @@ Domain
   ↓
 Step Definitions
   ↓
-Godot Button / Label / Node / Signal / SceneTree
+Presentation Layer (UI controls / pages / views)
 ```
 
 ## Layer Rules
@@ -42,8 +42,8 @@ Use unit tests for:
 Use Reqnroll BDD for:
 
 - use cases
-- player-visible behavior
-- business/game rule examples
+- user-visible behavior
+- business rule examples
 - accepted/rejected actions
 - workflow-level state changes
 
@@ -51,11 +51,9 @@ Use Reqnroll BDD for:
 
 Do not bind BDD directly to:
 
-- Godot nodes
-- labels
-- buttons
-- animation players
-- scene tree
-- signals
+- UI controls (buttons, labels, text fields)
+- pages or views
+- animation or visual effects
+- presentation framework signals or events
 
-Use manual QA or smoke tests for UI and animation behavior.
+Use manual QA or smoke tests for UI and visual behavior.

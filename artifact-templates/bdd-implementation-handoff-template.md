@@ -40,7 +40,7 @@ Skeletons must not include:
 - completed assertions
 - domain calculations
 - repository implementations
-- Godot node, label, button, signal, or scene tree access
+- Presentation-layer access (e.g., UI controls, pages, views)
 
 Example skeleton:
 
@@ -52,9 +52,9 @@ namespace {AcceptanceTestNamespace}.Steps;
 [Binding]
 public sealed class {SuggestedStepClass}
 {
-    private readonly GameScenarioContext _context;
+    private readonly ScenarioContext _context;
 
-    public {SuggestedStepClass}(GameScenarioContext context)
+    public {SuggestedStepClass}(ScenarioContext context)
     {
         _context = context;
     }
@@ -91,8 +91,56 @@ Create or update:
 ### Architecture Rules
 
 - Step definitions may call Application Services or test-facing Application facades.
-- Step definitions must not call Godot Presentation nodes.
+- Step definitions must not call Presentation-layer components.
 - Feature files must remain implementation-agnostic.
+
+### Implementation Patterns
+
+After skeletons are created, BDD-004 must replace each `PendingStepException()` with Application-layer calls. Follow these patterns:
+
+#### Given → Set up test state via builders + scenario context
+
+```csharp
+[Given("the account has a balance of {decimal}")]
+public void GivenTheAccountHasBalance(decimal amount)
+{
+    var account = TestDataBuilder.Create()
+        .WithBalance(amount)
+        .Build();
+    _context.SetEntityState(account);
+}
+```
+
+#### When → Exercise use case via Application facade
+
+```csharp
+[When("a deposit of {decimal} is made")]
+public void WhenADepositIsMade(decimal amount)
+{
+    var facade = _context.GetServiceFacade();
+    var result = facade.ProcessDeposit(_context.GetEntityId(), amount);
+    _context.SetActionResult(result);
+}
+```
+
+#### Then → Assert observable outcomes from scenario context
+
+```csharp
+[Then("the account balance should be {decimal}")]
+public void ThenTheAccountBalanceShouldBe(decimal expected)
+{
+    var account = _context.GetEntityState();
+    Assert.Equal(expected, account.Balance);
+}
+```
+
+#### Expected Test State Transitions
+
+| Phase | Step State | Test Result | Action |
+| ----- | ---------- | ----------- | ------ |
+| After BDD-003 | `PendingStepException()` | Scenarios show **skipped** (yellow/inconclusive) | Normal — proceed to BDD-004 |
+| After BDD-004 | Application calls + assertions | Scenarios show **passed** (green) | Commit |
+| After BDD-004 | If still skipped or failed | Inspect test output | Debug step bindings or Application boundary |
 
 ### Suggested Task Insertions
 

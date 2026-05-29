@@ -44,9 +44,57 @@ Create or update:
 ### Architecture Rules
 
 - Step definitions may call Application Services or test-facing Application facades.
-- Step definitions must not call Godot Presentation nodes.
-- Step definitions must not depend on UI labels, buttons, signals, or scene tree structure.
+- Step definitions must not call Presentation-layer components.
+- Step definitions must not depend on UI controls, pages, views, or presentation framework events.
 - Feature files must remain implementation-agnostic.
+
+### Implementation Patterns
+
+After skeletons are created (BDD-003), BDD-004 must replace each `PendingStepException()` with Application-layer calls:
+
+**Given → Set up test state via builders + scenario context:**
+
+```csharp
+[Given("the player has {int} shield")]
+public void GivenThePlayerHasShield(int amount)
+{
+    var battle = BattleTestDataBuilder.Create()
+        .WithPlayerShield(amount)
+        .Build();
+    _context.SetBattleState(battle);
+}
+```
+
+**When → Exercise use case via Application facade:**
+
+```csharp
+[When("the player plays the Guard card")]
+public void WhenThePlayerPlaysTheGuardCard()
+{
+    var facade = _context.GetBattleFacade();
+    var result = facade.PlayCard(_context.GetPlayerId(), CardType.Guard);
+    _context.SetActionResult(result);
+}
+```
+
+**Then → Assert observable outcomes from scenario context:**
+
+```csharp
+[Then("the player should have {int} shield")]
+public void ThenThePlayerShouldHaveShield(int expected)
+{
+    var battle = _context.GetBattleState();
+    Assert.Equal(expected, battle.PlayerShield);
+}
+```
+
+**Expected test state transitions:**
+
+| Phase | Step State | Test Result | Action |
+| ----- | ---------- | ----------- | ------ |
+| After BDD-003 | `PendingStepException()` | Scenarios show **skipped** (yellow/inconclusive) | Normal — proceed to BDD-004 |
+| After BDD-004 | Application calls + assertions | Scenarios show **passed** (green) | Commit |
+| After BDD-004 | If still skipped or failed | Inspect test output | Debug step bindings or Application boundary |
 
 ### Suggested Task Insertions
 

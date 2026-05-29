@@ -32,8 +32,16 @@
 ## Test Execution
 
 - Command:
-- Result:
+- Result: {Passed | Failed | Skipped (pending implementation) | Skipped (no test project)}
 - Notes:
+
+### Interpreting Skipped Results
+
+| Result | Meaning | Action |
+| ------ | ------- | ------ |
+| **Skipped (yellow/inconclusive)** | Step definitions exist but contain `PendingStepException()` | Normal after BDD-003 — proceed to BDD-004 implementation |
+| **Failed (red)** | Step definitions exist but assertions fail or Application boundary throws | Debug step implementation or Application service |
+| **Passed (green)** | All steps call Application boundary correctly and assertions hold | Feature is BDD-verified |
 
 ## Final Decision
 

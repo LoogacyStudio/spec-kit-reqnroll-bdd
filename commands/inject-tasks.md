@@ -74,7 +74,7 @@ specs/{feature}/bdd-implementation-handoff.md
 4. Every generated task must reference related Scenario IDs and AC IDs when available.
 5. Generated tasks must guide `/speckit.implement`, not replace it.
 6. Generated tasks must bind step definitions through the Application boundary.
-7. Generated tasks must not instruct implementation through Godot Presentation nodes.
+7. Generated tasks must not instruct implementation through Presentation-layer components.
 8. If the command cannot safely update `tasks.md`, it must write a proposed task block to `bdd-implementation-handoff.md` and clearly report the fallback.
 
 ## Marker Block
@@ -99,7 +99,7 @@ Use exactly these markers:
 - [ ] BDD-001 Create or update the Reqnroll acceptance test project
   - Source: `bdd-implementation-handoff.md`
   - Boundary: Application
-  - Notes: Keep the acceptance test project isolated from Godot Presentation runtime dependencies unless explicitly required.
+  - Notes: Keep the acceptance test project isolated from Presentation-layer runtime dependencies unless explicitly required.
 
 - [ ] BDD-002 Include generated `.feature` files in the acceptance test project
   - Feature files: {feature_files}
@@ -114,7 +114,13 @@ Use exactly these markers:
 
 - [ ] BDD-004 Complete step definitions through the Application boundary
   - Use Application Services or test-facing Application facades.
-  - Do not bind steps to Godot nodes, labels, buttons, signals, or scene tree structure.
+  - Do not bind steps to Presentation-layer components (e.g., UI controls, pages, views).
+  - Replace each `PendingStepException()` with:
+    - **Given**: call test data builders, store state in scenario context.
+    - **When**: call Application Service / test facade, capture result in context.
+    - **Then**: read state from context, assert with standard test assertion library (xUnit/NUnit/MSTest).
+  - After completion, run `dotnet test` — scenarios must transition from **skipped** (yellow) to **passed** (green).
+  - See `bdd-implementation-handoff.md` → Implementation Patterns for examples.
 
 - [ ] BDD-005 Add test support objects
   - Support: Scenario context, test data builders, in-memory repositories or fakes, Application-layer test facade if useful.

@@ -67,12 +67,7 @@ Fail if `.feature` files mention implementation details such as:
 - Controller
 - ViewModel
 - Presenter
-- Godot
-- Node
-- Label
-- Button
-- Signal
-- SceneTree
+- Presentation-layer terms (e.g., UI widget, page, view, component names)
 - method names
 - class names
 
@@ -87,6 +82,15 @@ dotnet test
 ```
 
 If no test project exists, skip test execution and report it as skipped, not failed.
+
+Interpreting test results:
+
+| Result | Meaning | Verdict |
+| ------ | ------- | ------- |
+| All green | All scenarios pass | Pass |
+| Yellow / inconclusive | `PendingStepException()` still present in step definitions — implementation not yet completed | Warning — note that BDD-004 is pending |
+| Red / failures | Assertions fail or Application boundary throws | Fail — requires debugging |
+| No test project | Cannot run tests | Skipped — not a failure |
 
 ## Output File
 
@@ -157,11 +161,12 @@ Fail if:
 - Any BDD-classified acceptance criterion has no scenario.
 - Any scenario lacks traceability.
 - Feature files expose implementation details.
-- `dotnet test` runs and fails.
+- `dotnet test` runs and fails (red / assertion failures).
 
 Warn if:
 
 - Test execution is skipped because no Reqnroll project exists.
+- Tests return yellow/inconclusive (step definitions have `PendingStepException()` — BDD-004 implementation is pending).
 - Scenario wording is vague.
 - A scenario is too broad.
 - A criterion is classified as Not Testable Yet.
@@ -171,4 +176,4 @@ Pass only if:
 - All BDD criteria are covered.
 - All scenarios are traceable.
 - No architecture leakage exists.
-- Optional tests pass or are justifiably skipped.
+- Optional tests pass or are justifiably skipped/pending.

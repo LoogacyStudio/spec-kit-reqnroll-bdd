@@ -12,7 +12,7 @@ Guard Card Shield Stacking
 | Scenario traceability | Pass | All generated scenarios have AC tags |
 | Gherkin quality | Pass | Scenarios are focused and observable |
 | Architecture boundary | Pass | No implementation terms are used |
-| Reqnroll test execution | Skipped | Example project does not include a .NET test project |
+| Reqnroll test execution | Skipped | No .NET test project exists in this example |
 
 ## Coverage Details
 

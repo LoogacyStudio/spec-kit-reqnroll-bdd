@@ -44,4 +44,4 @@ Scenario: {scenario_title}
 
 Step definitions should bind to Application-layer use cases.
 
-Feature files must not expose Domain internals, Infrastructure details, or Godot Presentation nodes.
+Feature files must not expose Domain internals, Infrastructure details, or Presentation-layer components.

@@ -1,3 +1,4 @@
+@infrastructure
 Feature: Guard Card Shield Stacking
   The player can play Guard cards during battle to gain shield.
   Shield gained from multiple Guard cards stacks within the same turn.

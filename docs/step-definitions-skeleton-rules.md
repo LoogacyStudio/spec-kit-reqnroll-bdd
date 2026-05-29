@@ -27,11 +27,10 @@ Skeletons must not include:
 - production code internals
 - repository implementation
 - infrastructure setup beyond test support placeholders
-- Godot node access
-- label/button/signal/scene tree access
-- animation or UI assertions
+- Presentation-layer access (e.g., UI controls, pages, views)
+- visual or animation assertions
 
-## Recommended Pattern
+## Recommended Skeleton Pattern
 
 ```csharp
 using Reqnroll;
@@ -61,3 +60,49 @@ public sealed class {StepClassName}
 Skeletons define the binding surface only.
 
 The actual implementation should be completed later through Application Services or test-facing Application facades.
+
+## Transition: Skeleton → Implementation
+
+After skeletons are created (BDD-003), the implementation task (BDD-004) must replace each `PendingStepException()` with Application-layer calls. Follow these patterns:
+
+### Given → Set up test state via builders + context
+
+```csharp
+[Given("the account has a balance of {decimal}")]
+public void GivenTheAccountHasBalance(decimal amount)
+{
+    var account = TestDataBuilder.Create()
+        .WithBalance(amount)
+        .Build();
+    _context.SetEntityState(account);
+}
+```
+
+### When → Exercise use case via Application facade
+
+```csharp
+[When("a deposit of {decimal} is made")]
+public void WhenADepositIsMade(decimal amount)
+{
+    var facade = _context.GetServiceFacade();
+    var result = facade.ProcessDeposit(_context.GetEntityId(), amount);
+    _context.SetActionResult(result);
+}
+```
+
+### Then → Assert observable outcomes from context
+
+```csharp
+[Then("the account balance should be {decimal}")]
+public void ThenTheAccountBalanceShouldBe(decimal expected)
+{
+    var account = _context.GetEntityState();
+    Assert.Equal(expected, account.Balance);
+}
+```
+
+### Key constraints
+
+- Steps call the Application boundary (service or test facade), never Domain internals.
+- Scenario context carries state between steps.
+- After implementation, `dotnet test` should transition scenarios from "skipped" (PendingStepException → yellow/inconclusive) to "passed" (green).

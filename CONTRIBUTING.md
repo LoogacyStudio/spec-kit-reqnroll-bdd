@@ -8,7 +8,7 @@ This extension focuses on Reqnroll BDD planning, Gherkin generation, task inject
 
 - No custom implementation command.
 - No automatic production code generation.
-- No Godot UI automation.
+- No Presentation-layer UI automation.
 - No automatic NuGet installation.
 
 ## Development Checklist

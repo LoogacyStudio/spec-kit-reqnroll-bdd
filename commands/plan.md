@@ -49,10 +49,10 @@ If multiple feature folders exist and the active feature cannot be inferred, ask
 
 BDD candidates may describe:
 
-- user/player actions
+- user actions
 - observable application behavior
 - domain-visible state changes
-- business/game rules
+- business rules
 - accepted/rejected outcomes
 
 BDD candidates must not mention:
@@ -63,11 +63,7 @@ BDD candidates must not mention:
 - DTO
 - Handler
 - Controller
-- Godot Node
-- Label
-- Button
-- Signal
-- SceneTree
+- Presentation-layer components (e.g., UI widgets, pages, views)
 - internal method names
 
 ## Output File
@@ -127,7 +123,7 @@ Scenario: {scenario title}
 
 Step definitions should bind to Application-layer use cases.
 
-Feature files must not expose Domain internals, Infrastructure details, or Godot Presentation nodes.
+Feature files must not expose Domain internals, Infrastructure details, or Presentation-layer components.
 ```
 
 ## Completion Criteria
